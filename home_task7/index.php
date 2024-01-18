@@ -13,10 +13,18 @@
 <div class="container" style="width:800px;margin:0 auto;">
     <?php
     $file = "auth_log.txt";
+
     if(!file_exists($file)){
         $fp = fopen($file, "a+") or die("Couldn't read the file");
     }
     $arr_file = file($file);
+
+    if(empty($arr_file)){
+        $adm_auth_but = '';
+    }else{
+
+    }
+
     if (!empty($_POST['email'])) {
         $file = "auth_log.txt";
         if(empty($arr_file)){
@@ -27,7 +35,9 @@
             fclose($fp); ?>
             <div class="alert" role="alert" style="margin:10px 0;font-weight: bold;color:green;">
                 Ви залогінились з Email: <?= $_POST['email'] ?>
+
             </div>
+
         <?php } else{
             foreach($arr_file as $val){
                 $arr_str = explode(";",$val);
@@ -77,6 +87,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
+    <br><br><hr><br><br><a href="admin_auth/" target="_blank" style="margin:10px;"><button type="button" class="btn btn-primary">To auth mini-admin</button>
 </div>
 </body>
 </html>
