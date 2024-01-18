@@ -76,16 +76,16 @@
     ?>
 
     <form method="post">
-            <br>
-            <div class="col-sm-6 mb-3">
-                <label for="inputEmail" class="form-label">Email</label>
-                <input type="email" placeholder="Email адреса" class="form-control" name="email">
-            </div>
-            <div class="col-sm-6 mb-3">
-                <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" placeholder="Пароль" class="form-control" name="pass">
-            </div>
-            <button type="submit" class="btn btn-primary">Sign up</button>
+        <br>
+        <div class="col-sm-6 mb-3">
+            <label for="inputEmail" class="form-label">Email</label>
+            <input type="email" placeholder="Email адреса" class="form-control" name="email">
+        </div>
+        <div class="col-sm-6 mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" placeholder="Пароль" class="form-control" name="pass">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
     <br><br><hr><br><br><a href="admin_auth/" target="_blank" style="margin:10px;"><button type="button" class="btn btn-primary">To auth mini-admin</button>
 </div>
