@@ -4,6 +4,8 @@ class GameCharacter {
     protected int $health;
     protected int $endurance;
     protected object $weapon;
+
+    protected int $baseDamage = 5;
     public string $name;
 
     public function __construct(int $health, int $endurance, object $weapon, string $name) {
@@ -25,7 +27,7 @@ class GameCharacter {
 
     public function calculateDamage(): int
     {
-        return $this->weapon->getDamage();
+        return $this->baseDamage + $this->weapon->getDamage();
     }
 }
 
