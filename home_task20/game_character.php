@@ -3,10 +3,10 @@
 class GameCharacter {
     protected int $health;
     protected int $endurance;
-    protected string $weapon;
+    protected object $weapon;
     public string $name;
 
-    public function __construct(int $health, int $endurance, string $weapon, string $name) {
+    public function __construct(int $health, int $endurance, object $weapon, string $name) {
         $this->health = $health;
         $this->endurance = $endurance;
         $this->weapon = $weapon;
@@ -23,9 +23,27 @@ class GameCharacter {
         return $this->health -= $damage;
     }
 
-    public function getWeapon(): string
+    public function calculateDamage(): int
     {
-        return $this->weapon;
+        return $this->weapon->getDamage();
+    }
+}
+
+class Weapon {
+    protected $name;
+    protected $damage;
+
+    public function __construct($name, $damage) {
+        $this->name = $name;
+        $this->damage = $damage;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getDamage() {
+        return $this->damage;
     }
 }
 
@@ -47,15 +65,18 @@ class Archer extends GameCharacter {
     }
 }
 
-$warrior1 = new Warrior(90, 80, 'меч', 'Артур');
-$magician1 = new Magician(70, 70, 'магічний посох', 'Мерлін');
-$archer1 = new Archer(75, 80, 'лук', 'Робін Гуд');
+$weaponSword = new Weapon("Меч", mt_rand(5, 15));
+$weaponStaff = new Weapon("Магічний посох", mt_rand(7, 16));
+$weaponBow = new Weapon("Лук", mt_rand(8, 17));
 
-$warrior2 = new Warrior(85, 85, 'меч', 'Річард');
-$magician2 = new Magician(60, 60, 'магічний посох', 'Саруман');
-$archer2 = new Archer(80, 90, 'лук', 'Леголаз');
+$warrior1 = new Warrior(90, 80, $weaponSword, 'Артур');
+$magician1 = new Magician(70, 70, $weaponStaff, 'Мерлін');
+$archer1 = new Archer(75, 80, $weaponBow, 'Робін Гуд');
 
-//echo "Health Warrior hero is: ".$warrior->getHealth() . PHP_EOL;
+$warrior2 = new Warrior(85, 85, $weaponSword, 'Річард');
+$magician2 = new Magician(60, 60, $weaponStaff, 'Саруман');
+$archer2 = new Archer(80, 90, $weaponBow, 'Леголаз');
+
 
 class Battle {
     protected $game_character1;
@@ -85,15 +106,7 @@ class Battle {
 
     protected function gameCharacter1Attack(): string
     {
-        if($this->game_character1->getWeapon()=='меч'){
-            $damage = mt_rand(5, 15);
-        }elseif($this->game_character1->getWeapon()=='магічний посох'){
-            $damage = mt_rand(7, 16);
-        }elseif($this->game_character1->getWeapon()=='лук'){
-            $damage = mt_rand(8, 17);
-        }else{
-            $damage = mt_rand(5, 15);
-        }
+        $damage = $this->game_character1->calculateDamage();
 
         $this->game_character2->reduceHealth($damage);
         return $this->game_character1->name . " атакує " . $this->game_character2->name . " і завдає " . $damage . " урон<br>";
@@ -101,15 +114,7 @@ class Battle {
 
     protected function gameCharacter2Attack(): string
     {
-        if($this->game_character2->getWeapon()=='меч'){
-            $damage = mt_rand(5, 15);
-        }elseif($this->game_character2->getWeapon()=='магічний посох'){
-            $damage = mt_rand(7, 16);
-        }elseif($this->game_character2->getWeapon()=='лук'){
-            $damage = mt_rand(8, 17);
-        }else{
-            $damage = mt_rand(5, 15);
-        }
+        $damage = $this->game_character2->calculateDamage();
 
         $this->game_character1->reduceHealth($damage);
         return $this->game_character2->name . " атакує " . $this->game_character1->name . " і завдає " . $damage . " урон<br>";
